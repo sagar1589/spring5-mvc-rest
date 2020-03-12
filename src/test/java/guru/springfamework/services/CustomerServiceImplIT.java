@@ -101,7 +101,7 @@ public class CustomerServiceImplIT {
         assertThat(originalLastName, not(equalTo(updatedCustomer.getLastName())));
     }
 
-    private Long getCustomerIdValue(){
+    private Long getCustomerIdValue() {
         List<Customer> customers = customerRepository.findAll();
 
         System.out.println("Customers Found: " + customers.size());

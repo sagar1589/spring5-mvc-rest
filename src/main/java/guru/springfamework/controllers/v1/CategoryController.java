@@ -4,7 +4,6 @@ import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.api.v1.model.CategoryListDTO;
 import guru.springfamework.services.CategoryService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,13 +19,31 @@ public class CategoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CategoryListDTO allCategories(){
+    public CategoryListDTO allCategories() {
         return new CategoryListDTO(categoryService.getAllCategories());
     }
 
     @GetMapping("{name}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryDTO getCategoryByName(@PathVariable String name){
+    public CategoryDTO getCategoryByName(@PathVariable String name) {
         return categoryService.getCategoryByName(name);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public CategoryDTO addCategory(@RequestBody CategoryDTO categoryDTO){
+        return categoryService.addCategory(categoryDTO);
+    }
+
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+        return categoryService.updateCategory(id, categoryDTO);
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryDTO patchCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+        return categoryService.patchCategory(id, categoryDTO);
     }
 }

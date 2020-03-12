@@ -63,7 +63,6 @@ public class VendorServiceImplTest {
     }
 
 
-
     @Test(expected = ResourceNotFoundException.class)
     public void getVendorByIdNotFound() throws Exception {
         //given

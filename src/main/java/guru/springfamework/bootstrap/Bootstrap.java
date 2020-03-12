@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * Created by jt on 9/24/17.
  */
 @Component
-public class Bootstrap implements CommandLineRunner{
+public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
 
@@ -47,7 +47,7 @@ public class Bootstrap implements CommandLineRunner{
         customerRepository.save(cust1);
         customerRepository.save(cust2);
 
-        System.out.println("Customers Loaded = " + customerRepository.count() );
+        System.out.println("Customers Loaded = " + customerRepository.count());
     }
 
     private void loadVendors() {
@@ -60,7 +60,7 @@ public class Bootstrap implements CommandLineRunner{
         vendorRepository.save(vendor1);
         vendorRepository.save(vendor2);
 
-        System.out.println("Customers Loaded = " + customerRepository.count() );
+        System.out.println("Customers Loaded = " + customerRepository.count());
     }
 
     private void loadCategories() {
@@ -84,6 +84,6 @@ public class Bootstrap implements CommandLineRunner{
         categoryRepository.save(fresh);
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
-        System.out.println("Categories Loaded = " + categoryRepository.count() );
+        System.out.println("Categories Loaded = " + categoryRepository.count());
     }
 }

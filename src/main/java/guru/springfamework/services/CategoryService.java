@@ -7,5 +7,12 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryDTO> getAllCategories();
+
     CategoryDTO getCategoryByName(String name);
+
+    CategoryDTO addCategory(CategoryDTO categoryDTO);
+
+    CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO);
+
+    CategoryDTO patchCategory(Long id, CategoryDTO categoryDTO);
 }

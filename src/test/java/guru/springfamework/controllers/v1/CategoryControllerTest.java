@@ -15,11 +15,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
+import static guru.springfamework.controllers.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -78,6 +79,7 @@ public class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
     }
+
     @Test
     public void testGetByNameNotFound() throws Exception {
 
@@ -86,5 +88,50 @@ public class CategoryControllerTest {
         mockMvc.perform(get(CategoryController.CATEGORIES_URL + "/Foo")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void addCategory() throws Exception {
+        CategoryDTO category1 = new CategoryDTO();
+        category1.setId(1l);
+        category1.setName(NAME);
+
+        when(categoryService.addCategory(any())).thenReturn(category1);
+        mockMvc.perform(post(CategoryController.CATEGORIES_URL)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(asJsonString(category1)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name", equalTo(category1.getName())));
+
+    }
+
+    @Test
+    public void updateCategory() throws Exception {
+        CategoryDTO category1 = new CategoryDTO();
+        category1.setId(1l);
+        category1.setName(NAME);
+
+        when(categoryService.updateCategory(anyLong(),any())).thenReturn(category1);
+        mockMvc.perform(put(CategoryController.CATEGORIES_URL+1l)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(category1)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", equalTo(category1.getName())));
+
+    }
+
+    @Test
+    public void patchCategory() throws Exception {
+        CategoryDTO category1 = new CategoryDTO();
+        category1.setId(1l);
+        category1.setName(NAME);
+
+        when(categoryService.patchCategory(anyLong(),any())).thenReturn(category1);
+        mockMvc.perform(patch(CategoryController.CATEGORIES_URL+1l)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(category1)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", equalTo(category1.getName())));
+
     }
 }
